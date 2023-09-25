@@ -8,11 +8,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.renan.qrcodebarreader.presenter.home.HomePage
+import com.renan.qrcodebarreader.presenter.home.pages.QrCodeGeneratePage
 
 sealed class AppRoutes {
     companion object {
         const val homeRoute: String = "home"
-        const val splashRoute: String = "splash"
+        const val generateQrCodeRoute: String = "generateQrCodeRoute"
     }
 }
 
@@ -21,8 +22,8 @@ fun AppNavigationHost(
     navController: NavHostController = rememberNavController(),
 ) {
     NavHost(navController = navController, startDestination =AppRoutes.homeRoute) {
-        composable(AppRoutes.homeRoute) { HomePage() }
-
+        composable(AppRoutes.homeRoute) { HomePage(navController = navController) }
+        composable(AppRoutes.generateQrCodeRoute) { QrCodeGeneratePage() }
     }
 }
 

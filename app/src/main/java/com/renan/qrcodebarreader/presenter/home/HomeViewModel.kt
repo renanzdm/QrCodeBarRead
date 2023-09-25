@@ -32,6 +32,7 @@ class HomeViewModel @Inject constructor(private val readerCodeService: ReaderCod
                   _state.update {
                       it.copy(code = response.data!!.displayValue, openSheet = true)
                   }
+              println(response.data!!)
               }
 
               is Resource.Error -> {

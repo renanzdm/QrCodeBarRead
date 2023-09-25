@@ -19,13 +19,13 @@ class ReaderCodeServiceImpl @Inject constructor() : ReaderCodeService {
     override suspend fun readCodes(context: Context): Resource<Barcode> {
         return try {
             val scanner = GmsBarcodeScanning.getClient(context, options)
-            val barcode = withContext(Dispatchers.IO) {
+            val barcode:Barcode = withContext(Dispatchers.IO) {
                 suspendCancellableCoroutine { continuation ->
                     val onSuccessListener = { barcode: Barcode ->
                         continuation.resume(barcode)
                     }
                     val onFailureListener = { e: Exception ->
-                        val errorMessage = e.localizedMessage ?: "Ocorreu um erro ao ler o Código de Barras"
+                        val errorMessage = e.localizedMessage.orEmpty()
                         continuation.resumeWithException(Exception(errorMessage))
                     }
                     scanner.startScan()
@@ -35,7 +35,7 @@ class ReaderCodeServiceImpl @Inject constructor() : ReaderCodeService {
             }
             Resource.Success(data = barcode)
         } catch (e: Exception) {
-            val errorMessage = e.localizedMessage ?: "Ocorreu um erro inesperado"
+            val errorMessage = e.localizedMessage.orEmpty()
             Resource.Error(message = errorMessage)
         }
     }
