@@ -1,4 +1,4 @@
-package com.renan.qrcodebarreader.presenter.home.pages
+package com.renan.qrcodebarreader.presenter.home.pages.generateqrcode
 
 import android.graphics.Bitmap
 

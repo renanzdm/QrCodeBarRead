@@ -84,7 +84,7 @@ fun QrCodeBarReaderTheme(
     }
 
     MaterialTheme(
-        colorScheme = DarkColors,
+        colorScheme = colors,
         content = content, typography = Typography,
     )
 }

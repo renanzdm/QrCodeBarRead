@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
     kotlin("kapt")
 }
 
@@ -34,6 +35,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -76,8 +78,19 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("com.google.dagger:hilt-android-compiler:2.45")
     implementation ("androidx.datastore:datastore-preferences:1.1.0-alpha05")
-    implementation ("com.google.android.gms:play-services-code-scanner:16.1.0")
     implementation ("com.journeyapps:zxing-android-embedded:4.1.0")
-    
-    
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+    implementation("io.coil-kt:coil-compose:2.2.2")
+//    implementation("com.google.firebase:firebase-analytics-ktx")
+//    implementation("com.google.firebase:firebase-ml-modeldownloader-ktx")
+//    implementation("org.tensorflow:tensorflow-lite:2.13.0")
+//    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+    implementation ("com.google.android.gms:play-services-code-scanner:16.1.0")
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
+
+
+
+
+
 }

@@ -1,6 +1,5 @@
-package com.renan.qrcodebarreader.presenter.home.pages
+package com.renan.qrcodebarreader.presenter.home.pages.generateqrcode
 
-import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter

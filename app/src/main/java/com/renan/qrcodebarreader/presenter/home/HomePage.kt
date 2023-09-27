@@ -6,6 +6,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -46,7 +47,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.renan.qrcodebarreader.R
 import com.renan.qrcodebarreader.presenter.AppRoutes
+import com.renan.qrcodebarreader.presenter.theme.md_theme_dark_inverseOnSurface
 import com.renan.qrcodebarreader.presenter.theme.md_theme_dark_onTertiary
+import com.renan.qrcodebarreader.presenter.theme.md_theme_dark_primary
+import com.renan.qrcodebarreader.presenter.theme.md_theme_light_inverseOnSurface
+import com.renan.qrcodebarreader.presenter.theme.md_theme_light_primary
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -56,16 +61,17 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel(), navController: NavH
     val uiState = homeViewModel.state.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
     val listButtons: List<ButtonsModel> = listOf(
-        ButtonsModel(name = "Ler Codigo/QrCode",
+        ButtonsModel(name = "Ler Codigo de Barras/QrCode",
             icon = R.drawable.baseline_document_scanner_24,
             onTap = { coroutineScope.launch { homeViewModel.readQrCode(context = context) } }),
         ButtonsModel(name = "Gerar QrCode", icon = R.drawable.baseline_qr_code_scanner_24, onTap = {
             navController.navigate(AppRoutes.generateQrCodeRoute)
         }),
-        ButtonsModel(name = "Aprimorar documento", icon = R.drawable.baseline_qr_code_scanner_24),
+        ButtonsModel(name = "Digitalizar Documento",
+            icon = R.drawable.baseline_qr_code_scanner_24,
+            onTap = { navController.navigate(AppRoutes.docScanning) }),
     )
-    
-    
+
     Scaffold { _ ->
         if (uiState.value.openSheet) {
             BottomSheetCodeValue(
@@ -73,43 +79,46 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel(), navController: NavH
             )
         }
     }
-    Column(Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = "Leitor e Digitalizador de Documentos", style = TextStyle(
-                fontSize = 25.sp, fontWeight = FontWeight.ExtraBold
-            )
-        )
-        
+    Column(
+        Modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 128.dp),
         ) {
             items(listButtons) { model ->
                 Column(
                     modifier = Modifier
-                        .height(130.dp)
-                        .padding(20.dp)
-                        .shadow(
-                            elevation = 4.dp,
-                            spotColor = Color.Gray,
-                            shape = RoundedCornerShape(22f)
-                        )
+                        .height(200.dp)
+                        .width(120.dp)
+                        .padding(12.dp)
                         .clip(RoundedCornerShape(22f))
-                        .background(md_theme_dark_onTertiary)
+                        .background(if (isSystemInDarkTheme()) md_theme_dark_primary else md_theme_light_primary,)
                         .clickable { model.onTap?.invoke() },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(text = model.name, textAlign = TextAlign.Center)
+                    Text(
+                        text = model.name, textAlign = TextAlign.Center, style = TextStyle(
+                            color = if (isSystemInDarkTheme()) md_theme_dark_inverseOnSurface else md_theme_light_inverseOnSurface,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontSize = 18.sp
+                        )
+                    )
                     Spacer(modifier = Modifier.height(8.dp))
                     Icon(
-                        painter = painterResource(id = model.icon), contentDescription = "Icon"
+                        painter = painterResource(id = model.icon),
+                        contentDescription = "Icon",
+                        tint = if (isSystemInDarkTheme()) md_theme_dark_inverseOnSurface else md_theme_light_inverseOnSurface
                     )
                 }
             }
         }
-        
+
     }
-    
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -137,7 +146,6 @@ fun BottomSheetCodeValue(onClose: () -> Unit, data: String?) {
                     val clip: ClipData = ClipData.newPlainText("Valor Copiado", data)
                     clipboard.setPrimaryClip(clip)
                     Toast.makeText(context, "Copiado!!", Toast.LENGTH_LONG).show()
-                    
                 }) {
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_content_copy_24),

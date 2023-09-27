@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "462223524317",
+    "project_id": "apptoolsqrdoc",
+    "storage_bucket": "apptoolsqrdoc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:462223524317:android:64afa6f785dd1410967634",
+        "android_client_info": {
+          "package_name": "com.renan.qrcodebarreader"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOY3sS9f0VjM9vV0Vv9NgHggBwzMekikk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
