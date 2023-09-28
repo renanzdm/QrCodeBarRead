@@ -31,9 +31,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -41,14 +39,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.renan.qrcodebarreader.R
 import com.renan.qrcodebarreader.presenter.AppRoutes
 import com.renan.qrcodebarreader.presenter.theme.md_theme_dark_inverseOnSurface
-import com.renan.qrcodebarreader.presenter.theme.md_theme_dark_onTertiary
 import com.renan.qrcodebarreader.presenter.theme.md_theme_dark_primary
 import com.renan.qrcodebarreader.presenter.theme.md_theme_light_inverseOnSurface
 import com.renan.qrcodebarreader.presenter.theme.md_theme_light_primary
@@ -67,9 +63,9 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel(), navController: NavH
         ButtonsModel(name = "Gerar QrCode", icon = R.drawable.baseline_qr_code_scanner_24, onTap = {
             navController.navigate(AppRoutes.generateQrCodeRoute)
         }),
-        ButtonsModel(name = "Digitalizar Documento",
+        ButtonsModel(name = "Copiar Texto de Documento",
             icon = R.drawable.baseline_qr_code_scanner_24,
-            onTap = { navController.navigate(AppRoutes.docScanning) }),
+            onTap = { navController.navigate(AppRoutes.docToText) }),
     )
 
     Scaffold { _ ->

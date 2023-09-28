@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "QrCodeBarReader"
 include(":app")
- 
+include(":sdk")
