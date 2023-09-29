@@ -56,6 +56,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.renan.qrcodebarreader.R
+import com.renan.qrcodebarreader.presenter.components.AppTopBar
 import com.renan.qrcodebarreader.presenter.components.CustomSnackBarHost
 import com.renan.qrcodebarreader.presenter.components.PhotoPicker
 import com.renan.qrcodebarreader.presenter.home.pages.generateqrcode.createImageFile
@@ -81,17 +82,14 @@ fun DocToTextPage(
             snackHost.showSnackbar(message = uiState.value.errorMessage!!)
         }
     }
-    Scaffold(topBar = {
-        TopAppBar(title = { Text(text = "Scanner Documento") }, navigationIcon = {
-            Icon(Icons.AutoMirrored.Rounded.ArrowBack,
-                contentDescription = "Voltar",
-                modifier = Modifier
-                    .padding(end = 16.dp)
-                    .clickable {
-                        navController.popBackStack()
-                    })
-        })
-    }, snackbarHost = { CustomSnackBarHost(hostState = snackHost, color = md_theme_dark_error) }) { paddingValues ->
+    Scaffold(
+        topBar = { AppTopBar(backOnTap = {navController.popBackStack()}, title = "Copiar texto de Documentos") },
+        snackbarHost = {
+            CustomSnackBarHost(
+                hostState = snackHost,
+                color = md_theme_dark_error
+            )
+        }) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

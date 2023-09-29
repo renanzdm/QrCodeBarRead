@@ -19,6 +19,9 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.sharp.List
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -64,8 +67,11 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel(), navController: NavH
             navController.navigate(AppRoutes.generateQrCodeRoute)
         }),
         ButtonsModel(name = "Copiar Texto de Documento",
-            icon = R.drawable.baseline_qr_code_scanner_24,
+            icon = R.drawable.baseline_list_24,
             onTap = { navController.navigate(AppRoutes.docToText) }),
+        ButtonsModel(name = "Digitalizar Documento",
+            icon = R.drawable.baseline_adf_scanner_24,
+            onTap = { navController.navigate(AppRoutes.docScanning) }),
     )
 
     Scaffold { _ ->
@@ -91,7 +97,7 @@ fun HomePage(homeViewModel: HomeViewModel = hiltViewModel(), navController: NavH
                         .width(120.dp)
                         .padding(12.dp)
                         .clip(RoundedCornerShape(22f))
-                        .background(if (isSystemInDarkTheme()) md_theme_dark_primary else md_theme_light_primary,)
+                        .background(if (isSystemInDarkTheme()) md_theme_dark_primary else md_theme_light_primary)
                         .clickable { model.onTap?.invoke() },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
